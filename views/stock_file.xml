@@ -1,0 +1,90 @@
+<odoo>
+
+    <record id="view_stock_excel_file_form" model="ir.ui.view">
+        <field name="name">stock.excel.file.form</field>
+        <field name="model">stock.excel.file</field>
+        <field name="arch" type="xml">
+	    <form>
+		<header>
+			<button name="btn_process_file"
+				string="Procesar"
+				states="draft" type="object" />
+	                <field name="state" widget="statusbar" />
+		</header>
+		<sheet>
+			<group>
+		                <field name="name" states="draft"/>
+				<field name="date" state="draft"/>
+				<field name="location_id" states="draft"
+					options="{'no_create': True, 'no_create_edit':True}" />
+				<!-- field name="product_vat_id" />
+				<field name="product_novat_id" />
+				<field name="product_exempt_id" />
+				<field name="product_other_taxes_id" / -->
+				<field name="excel_file" states="draft"/>
+			</group>
+			<notebook>
+				<page string="Productos" >
+					<br />
+					<group>
+						<field name="product_ids" readonly="1" />
+					</group>
+				</page>
+				<page string="Nros de Serie" >
+					<br />
+					<group>
+						<field name="lot_ids" readonly="1" />
+					</group>
+				</page>
+				<page string="Movimientos de Stock" >
+					<br />
+					<group>
+						<field name="move_ids" readonly="1" />
+					</group>
+				</page>
+				<page string="Movimientos de Productos" >
+					<br />
+					<group>
+						<field name="move_line_ids" readonly="1" />
+					</group>
+				</page>
+			</notebook>
+		</sheet>
+	        <div class="oe_chatter">
+        	    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+	            <field name="message_ids" widget="mail_thread"/>
+        	</div>
+	    </form>
+        </field>
+    </record>
+
+
+    <record id="view_stock_excel_file_tree" model="ir.ui.view">
+        <field name="name">stock.excel.file.tree</field>
+        <field name="model">stock.excel.file</field>
+        <field name="arch" type="xml">
+	   <tree>
+                <field name="name" />
+                <field name="date" />
+                <field name="state" />
+            </tree>
+        </field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_stock_excel_file">
+        <field name="name">Importar Archivo Excel</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">stock.excel.file</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <menuitem
+        id="menu_stock_excel_file"
+	    name="Importar Archivo Stock"
+	    action="action_stock_excel_file"
+	    parent="stock.menu_stock_warehouse_mgmt"
+	    sequence="200"
+    />
+
+
+</odoo>
